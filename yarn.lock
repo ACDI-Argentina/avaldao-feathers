@@ -4404,24 +4404,6 @@ giveth-common-contracts@0.6.0:
     solium "^1.1.5"
     truffle "^4.0.6"
 
-giveth-liquidpledging@1.0.0-beta.4:
-  version "1.0.0-beta.4"
-  resolved "https://registry.yarnpkg.com/giveth-liquidpledging/-/giveth-liquidpledging-1.0.0-beta.4.tgz#70bf8ba9f7c3c95c3a9cb8bb928dea20d6b38542"
-  dependencies:
-    "@aragon/os" "3.1.9"
-    async "^2.4.0"
-    chai "^4.1.0"
-    eth-contract-class "^0.0.12"
-
-giveth-liquidpledging@1.0.0-beta.5:
-  version "1.0.0-beta.5"
-  resolved "https://registry.yarnpkg.com/giveth-liquidpledging/-/giveth-liquidpledging-1.0.0-beta.5.tgz#27268288fcaa449399823ffc6ef9c71a9e5b836f"
-  dependencies:
-    "@aragon/os" "3.1.9"
-    async "^2.4.0"
-    chai "^4.1.0"
-    eth-contract-class "^0.0.12"
-
 "gkt@https://tgz.pm2.io/gkt-1.0.0.tgz":
   version "1.0.0"
   resolved "https://tgz.pm2.io/gkt-1.0.0.tgz#405502b007f319c3f47175c4474527300f2ab5ad"
@@ -6301,32 +6283,6 @@ lowercase-keys@1.0.0:
 lowercase-keys@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/lowercase-keys/-/lowercase-keys-1.0.1.tgz#6f9e30b47084d971a7c820ff15a6c5167b74c26f"
-
-lpp-campaign@1.0.0-beta.2:
-  version "1.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/lpp-campaign/-/lpp-campaign-1.0.0-beta.2.tgz#2cbbe2eb69164215c70f33ab4d6edf9ac5705475"
-  dependencies:
-    "@aragon/os" "3.1.9"
-    chai "^4.1.2"
-    giveth-liquidpledging "1.0.0-beta.4"
-    minimetoken "0.2.0"
-
-lpp-capped-milestone@1.0.0-beta.3:
-  version "1.0.0-beta.3"
-  resolved "https://registry.yarnpkg.com/lpp-capped-milestone/-/lpp-capped-milestone-1.0.0-beta.3.tgz#ec3937553f206bce009f4df49832136c3d68085f"
-  dependencies:
-    "@aragon/os" "3.1.9"
-    giveth-bridge "1.0.0-beta.1"
-    giveth-liquidpledging "1.0.0-beta.4"
-
-lpp-dac@1.0.0-beta.3:
-  version "1.0.0-beta.3"
-  resolved "https://registry.yarnpkg.com/lpp-dac/-/lpp-dac-1.0.0-beta.3.tgz#b5743d416337fb54034c77a76e5cdc603447d286"
-  dependencies:
-    "@aragon/os" "3.1.9"
-    chai "^4.1.2"
-    giveth-liquidpledging "1.0.0-beta.4"
-    minimetoken "^0.2.0"
 
 lru-cache@2, lru-cache@^2.5.0:
   version "2.7.3"

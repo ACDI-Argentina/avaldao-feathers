@@ -96,10 +96,7 @@ module.exports = (NODE_ENV = process.env.NODE_ENV) => {
         blockchain: {
           nodeUrl: "http://localhost:4444",
           requiredConfirmations: 0,
-          vaultAddress: "0xcF50eE97706334dd2082A0a69BFfbc3f009856A7",
-          liquidPledgingAddress: "0xDa9e56BB20Dd8ecB6BA16c2b625ADbd61748Bfe7",
-          lppCampaignFactory: "0xdac5481925A298B95Bf5b54c35b68FC6fc2eF423",
-          lppCappedMilestoneFactory: "0x14f6504A7ca4e574868cf8b49e85187d3Da9FA70"
+          vaultAddress: "0xcF50eE97706334dd2082A0a69BFfbc3f009856A7"
         },
         fiatWhitelist: [
           "USD"
