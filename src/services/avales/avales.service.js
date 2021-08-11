@@ -1,11 +1,11 @@
 // Initializes the `avales` service on path `/avales`
 const createService = require('feathers-mongoose');
-const { createModel } = require('../../models/avales.model');
+const Aval = require('../../models/avales.model');
 const hooks = require('./avales.hooks');
 
 module.exports = function registerService() {
   const app = this;
-  const Model = createModel(app);
+  const Model = Aval(app);
   const paginate = app.get('paginate');
 
   const options = {

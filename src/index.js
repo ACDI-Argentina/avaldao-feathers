@@ -1,4 +1,5 @@
-const { queryConversionRates } = require('./services/conversionRates/getConversionRatesService');
+//const { queryConversionRates } = require('./services/conversionRates/getConversionRatesService');
+const initDatabaseWithDummy = require('./init-database');
 
 const logger = require('winston');
 const app = require('./app');
@@ -9,6 +10,8 @@ const server = app.listen(port);
 server.on('listening', () => {
   logger.info(`Feathers application started on ${app.get('host')}:${port}`);
   logger.info(`Using DappMailer url ${app.get('dappMailerUrl')}`);
+
+  initDatabaseWithDummy(app);
 });
 
-queryConversionRates(app);
+//queryConversionRates(app);

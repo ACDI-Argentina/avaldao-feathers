@@ -4,6 +4,7 @@ const feathers = require('@feathersjs/feathers');
 const express = require('@feathersjs/express');
 const configuration = require('@feathersjs/configuration');
 const notFound = require('@feathersjs/errors/not-found');
+//const { NotFound } = require('@feathersjs/errors');
 
 const socketsConfig = require('./socketsConfig');
 const configureLogger = require('./utils/configureLogger');
@@ -60,6 +61,7 @@ app.configure(ipfsFetcher);
 app.configure(ipfsPinner);
 // Configure a middleware for 404s and the error handler
 app.use(notFound());
+//app.use(new NotFound());
 // Register a nicer error handler than the default Express one
 app.use(
   express.errorHandler({
