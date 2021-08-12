@@ -19,7 +19,7 @@ module.exports = function Aval(app) {
       solicitanteAddress: { type: String, required: true },
       comercianteAddress: { type: String },
       avaladoAddress: { type: String },
-      status: { type: String, required: true }
+      status: { type: Number, required: true }
     },
     {
       timestamps: true,

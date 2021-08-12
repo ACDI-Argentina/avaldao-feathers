@@ -13,7 +13,7 @@ module.exports = function initDatabaseWithDummy(app) {
     solicitanteAddress: '0xee4b388fb98420811C9e04AE8378330C05A2735a',
     comercianteAddress: '0xee4b388fb98420811C9e04AE8378330C05A2735a',
     avaladoAddress: '0xee4b388fb98420811C9e04AE8378330C05A2735a',
-    status: 'Completado'
+    status: 3
   });
 
   app.service('avales').create({
@@ -29,7 +29,7 @@ module.exports = function initDatabaseWithDummy(app) {
     solicitanteAddress: '0xee4b388fb98420811C9e04AE8378330C05A2735a',
     comercianteAddress: '0xee4b388fb98420811C9e04AE8378330C05A2735a',
     avaladoAddress: '0xee4b388fb98420811C9e04AE8378330C05A2735a',
-    status: 'Completado'
+    status: 2
   });
 
   app.service('avales').create({
@@ -45,6 +45,6 @@ module.exports = function initDatabaseWithDummy(app) {
     solicitanteAddress: '0xee4b388fb98420811C9e04AE8378330C05A2735a',
     comercianteAddress: '0xee4b388fb98420811C9e04AE8378330C05A2735a',
     avaladoAddress: '0xee4b388fb98420811C9e04AE8378330C05A2735a',
-    status: 'Completado'
+    status: 3
   });
 };
