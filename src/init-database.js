@@ -11,9 +11,7 @@ module.exports = function initDatabaseWithDummy(app) {
     monto: '10.000 USD',
     avaldaoAddress: '0xee4b388fb98420811C9e04AE8378330C05A2735a',
     solicitanteAddress: '0xee4b388fb98420811C9e04AE8378330C05A2735a',
-    comercianteAddress: '0xee4b388fb98420811C9e04AE8378330C05A2735a',
-    avaladoAddress: '0xee4b388fb98420811C9e04AE8378330C05A2735a',
-    status: 3
+    status: 2
   });
 
   app.service('avales').create({
@@ -27,8 +25,6 @@ module.exports = function initDatabaseWithDummy(app) {
     monto: '10.000 USD',
     avaldaoAddress: '0xee4b388fb98420811C9e04AE8378330C05A2735a',
     solicitanteAddress: '0xee4b388fb98420811C9e04AE8378330C05A2735a',
-    comercianteAddress: '0xee4b388fb98420811C9e04AE8378330C05A2735a',
-    avaladoAddress: '0xee4b388fb98420811C9e04AE8378330C05A2735a',
     status: 2
   });
 

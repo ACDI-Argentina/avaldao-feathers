@@ -19,6 +19,10 @@ module.exports = function Aval(app) {
       solicitanteAddress: { type: String, required: true },
       comercianteAddress: { type: String },
       avaladoAddress: { type: String },
+      avaldaoSignature: { type: String },
+      solicitanteSignature: { type: String },
+      comercianteSignature: { type: String },
+      avaladoSignature: { type: String },
       status: { type: Number, required: true }
     },
     {
