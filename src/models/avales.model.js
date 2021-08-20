@@ -7,7 +7,7 @@ module.exports = function Aval(app) {
   const { Schema } = mongooseClient;
   const avalSchema = new Schema(
     {
-      id: { type: Number, required: true, index: true, unique: true },
+      id: { type: Number },
       infoCid: { type: String },
       proyecto: { type: String, required: true },
       proposito: { type: String, required: true },
