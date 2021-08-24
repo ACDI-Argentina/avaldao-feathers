@@ -12,6 +12,7 @@ module.exports = field => context => {
     return context;
   }
 
-  setByDot(context.data, field, context.params.user.address);
+  //setByDot(context.data, field, context.params.user.address);
+  setByDot(context.data, field, context.params.address);
   return context;
 };

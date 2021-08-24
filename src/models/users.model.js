@@ -10,9 +10,9 @@ module.exports = function User(app) {
       address: { type: String, required: true, index: true, unique: true },
       name: { type: String },
       email: { type: String },
-      avatar: { type: String },
       linkedin: { type: String },
       url: { type: String },
+      infoCid: { type: String }
     },
     {
       timestamps: true,
