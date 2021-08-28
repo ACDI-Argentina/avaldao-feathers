@@ -32,8 +32,8 @@ const address = [
 module.exports = {
   before: {
     all: [],
-    find: [sanitizeAddress('address')],
-    get: [normalizeId(),commons.discardQuery('$disableStashBefore')],
+    find: [/*sanitizeAddress('address')*/],
+    get: [/*normalizeId(),*/commons.discardQuery('$disableStashBefore')],
     create: [],
     update: [],
     patch: [],
