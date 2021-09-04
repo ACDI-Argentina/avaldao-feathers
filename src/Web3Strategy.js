@@ -70,7 +70,8 @@ class Web3Strategy extends Strategy {
       if (!message) return this.issueChallenge(address);
 
       const recoveredAddress = recoverAddress(message, signature);
-      const cAddress = toChecksumAddress(address);
+      //const cAddress = toChecksumAddress(address);
+      const cAddress = address;
 
       if (recoveredAddress !== cAddress) {
         console.log('Recovered address does not match provided address.', recoveredAddress, cAddress);

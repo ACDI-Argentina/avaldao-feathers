@@ -27,42 +27,27 @@ const address = [
   sanitizeAddress('address', { required: true, validate: true }),
 ];
 
-const notifyParents = [
-  {
-    service: 'campaigns',
-    parentField: 'ownerAddress',
-    childField: 'address',
-    watchFields: ['avatar', 'name'],
-  },
-  {
-    service: 'dacs',
-    parentField: 'ownerAddress',
-    childField: 'address',
-    watchFields: ['avatar', 'name'],
-  },
-];
-
 // TODO write a hook to prevent overwriting a non-zero giverId with 0
 
 module.exports = {
   before: {
     all: [],
-    find: [sanitizeAddress('address')],
-    get: [normalizeId(),commons.discardQuery('$disableStashBefore')],
-    create: [commons.discard('_id'), ...address],
-    update: [...restrict, commons.stashBefore()],
-    patch: [...restrict, commons.stashBefore()],
-    remove: [commons.disallow()],
+    find: [/*sanitizeAddress('address')*/],
+    get: [/*normalizeId(),*/commons.discardQuery('$disableStashBefore')],
+    create: [],
+    update: [],
+    patch: [],
+    remove: [],
   },
 
   after: {
-    all: [commons.discard('_id')],
-    find: [resolveFiles('avatar')],
-    get: [resolveFiles('avatar')],
-    create: [resolveFiles('avatar')],
-    update: [resolveFiles('avatar'), notifyOfChange(...notifyParents)],
-    patch: [resolveFiles('avatar'), notifyOfChange(...notifyParents)],
-    remove: [notifyOfChange(...notifyParents)],
+    all: [],
+    find: [],
+    get: [],
+    create: [],
+    update: [],
+    patch: [],
+    remove: [],
   },
 
   error: {
