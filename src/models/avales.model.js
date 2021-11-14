@@ -12,7 +12,7 @@ module.exports = function Aval(app) {
       causa: { type: String, required: true },
       adquisicion: { type: String, required: true },
       beneficiarios: { type: String, required: true },
-      monto: { type: Number, required: true },
+      montoFiat: { type: Number, required: true },
       cuotasCantidad: { type: Number, required: true },
       avaldaoAddress: { type: String, required: true },
       solicitanteAddress: { type: String, required: true },
