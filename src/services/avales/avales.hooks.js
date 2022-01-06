@@ -28,6 +28,27 @@ const onlyRole = (role) => context => {
   return context;
 };
 
+const onlyAvaldaoCanAccept = () => async context => { //Or reject
+  const aval = await context.service.get(context.id);
+  if(!aval){
+    throw new Error(`Aval ${context.id} not found.`)
+  }
+  const newStatus = context.data.status;
+  if(aval.status != 0  || (newStatus !== 1 && newStatus !== 2)){
+    throw new Error(`Incorrect status: ${newStatus}.`)
+  }
+  
+  let userId;
+  if(context.params.payload && context.params.payload.userId){
+    userId = context.params.payload.userId;
+  }
+
+  if(!userId || userId !== aval.avaldaoAddress){
+    throw new Error('Unauthorized');  
+  }
+
+  return context;
+};
 
 
 module.exports = {
@@ -35,9 +56,9 @@ module.exports = {
     all: [],
     find: [],
     get: [],
-    create: [onlyRole("solicitante")],
+    create: [log(),onlyRole("solicitante")],
     update: [],
-    patch: [],
+    patch: [log(),onlyAvaldaoCanAccept()],
     remove: []
   },
 
