@@ -34,19 +34,19 @@ const onlyAvaldaoCanAccept = () => async context => { //Or reject
     throw new Error(`Aval ${context.id} not found.`)
   }
   const newStatus = context.data.status;
-  if(aval.status != 0  || (newStatus !== 1 && newStatus !== 2)){
-    throw new Error(`Incorrect status: ${newStatus}.`)
+  if(aval.status === 0  || (newStatus === 1 && newStatus === 2)){ //is approving or rejecting
+    let userId;
+
+    if(context.params.payload && context.params.payload.userId){
+      userId = context.params.payload.userId;
+    }
+
+    if(!userId || userId !== aval.avaldaoAddress){
+      throw new Error('Unauthorized');  
+    }
+    
   }
   
-  let userId;
-  if(context.params.payload && context.params.payload.userId){
-    userId = context.params.payload.userId;
-  }
-
-  if(!userId || userId !== aval.avaldaoAddress){
-    throw new Error('Unauthorized');  
-  }
-
   return context;
 };
 
@@ -56,7 +56,7 @@ module.exports = {
     all: [],
     find: [],
     get: [],
-    create: [log(),onlyRole("solicitante")],
+    create: [log(),onlyRole("solicitante")], //TODO: USAR EL DEL SMART CONTRACT
     update: [],
     patch: [log(),onlyAvaldaoCanAccept()],
     remove: []
