@@ -57,8 +57,9 @@ app.configure(authentication);
 app.configure(services);
 app.configure(channels);
 // blockchain must be initialized after services
-app.configure(ipfsFetcher);
-app.configure(ipfsPinner);
+//app.configure(ipfsFetcher);
+//app.configure(ipfsPinner);
+
 // Configure a middleware for 404s and the error handler
 app.use(notFound());
 //app.use(new NotFound());

@@ -24,11 +24,29 @@ function unsetUndefined(next) {
 
 module.exports = function mongooseFactory() {
   const app = this;
-  const {mongodb: mongoUrl} = mongoConfig;
+  const { mongodb: mongoUrl } = mongoConfig;
 
-  logger.info('Using feathers mongo url', mongoUrl);
+  if (!mongoUrl) {
+    throw new Error("Missing required param: mongoUrl. Please set it using MONGO_DB env variable");
+  }
 
-  mongoose.connect(mongoUrl, { useNewUrlParser: true });
+  //Don't print sensitive information in logs
+  const [part1, part2] = mongoUrl.split("@");
+  let maskedUrl = part1;
+  if (part2) {
+    maskedUrl = `${part1.split(":").slice(0, -1).concat("*****").join(":")}@${part2}`
+  }
+  logger.info('Using mongo url', maskedUrl);
+
+
+  const connectionOptions = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useUnifiedTopology: true
+  }
+
+  mongoose.set('useCreateIndex', true);
+  mongoose.connect(mongoUrl, connectionOptions);
 
   const db = mongoose.connection;
   db.on('error', err => logger.error('Could not connect to Mongo', err));
