@@ -8,25 +8,48 @@ const log = () => context => {
   return context;
 };
 
-
-const onlyRole = (role) => context => {
+//Comprueba que el address del solicitante sea el mismo que llega en el body
+const checkAvalSolicitante = () => context => {
   let userId;
-
-  if(context.params.payload && context.params.payload.userId){
+  try {
     userId = context.params.payload.userId;
+  } catch (err) {
+    //property doesnt exist 
   }
 
-  if(!userId){
-    throw new Error('Unauthorized');  
+  if (!userId) {
+    throw new Error('Unauthorized');
   }
-  const addressData = context.data[`${role}Address`];
   
-  if(addressData !== userId){
+  if (context.data[`solicitanteAddress`] !== userId) {
     throw new Error(`Unauthorized. User: [${userId}] is not allowed to execute current action`);
   }
-  
+
   return context;
 };
+
+
+//'AVALDAO_ROLE','SOLICITANTE_ROLE','COMERCIANTE_ROLE','AVALADO_ROLE'
+const onlyJWTRole = (rol) => context => { //TODO: check type
+  let jwtRoles;
+  try{
+    jwtRoles = context.params.payload.roles.avaldao;
+  } catch(err){
+    //property doesnt exist
+  }
+
+  if(!jwtRoles){
+    throw new Error("Token does not contain roles");
+  }
+
+  if(!jwtRoles.includes(rol)){
+    throw new Error(`Unauthorized. Missing role: [${rol}]`);
+  }
+
+  return context;
+};
+
+
 
 const onlyAvaldaoCanAccept = () => async context => { //Or reject
   const aval = await context.service.get(context.id);
@@ -51,12 +74,18 @@ const onlyAvaldaoCanAccept = () => async context => { //Or reject
 };
 
 
+
+
 module.exports = {
   before: {
     all: [],
     find: [],
     get: [],
-    create: [log(),onlyRole("solicitante")], //TODO: USAR EL DEL SMART CONTRACT
+    create: [
+      log(),
+      checkAvalSolicitante(),
+      onlyJWTRole("SOLICITANTE_ROLE")
+    ], 
     update: [],
     patch: [log(),onlyAvaldaoCanAccept()],
     remove: []
