@@ -1,10 +1,10 @@
 
 
 const log = () => context => {
-  console.log(context.data);
+  console.log('Request data', context.data);
+  console.log('Request params', context.params);
   const userId = context.params.payload.userId;
   console.log(`userId:`,userId);
-
   return context;
 };
 
