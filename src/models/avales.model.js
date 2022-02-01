@@ -16,8 +16,8 @@ module.exports = function Aval(app) {
       cuotasCantidad: { type: Number, required: true },
       avaldaoAddress: { type: String, required: true },
       solicitanteAddress: { type: String, required: true },
-      comercianteAddress: { type: String },
-      avaladoAddress: { type: String },
+      comercianteAddress: { type: String, required: true },
+      avaladoAddress: { type: String, required: true },
       avaldaoSignature: { type: String },
       solicitanteSignature: { type: String },
       comercianteSignature: { type: String },
@@ -26,6 +26,7 @@ module.exports = function Aval(app) {
     },
     {
       timestamps: true,
+      collection: 'avales'
     },
   );
 
