@@ -33,7 +33,7 @@ const checkAvalSolicitante = () => context => {
 const onlyJWTRole = (rol) => context => { //TODO: check type
   let jwtRoles;
   try{
-    jwtRoles = context.params.payload.roles.avaldao;
+    jwtRoles = context.params.payload.roles;
   } catch(err){
     //property doesnt exist
   }
@@ -57,7 +57,11 @@ const onlyAvaldaoCanAccept = () => async context => { //Or reject
     throw new Error(`Aval ${context.id} not found.`)
   }
   const newStatus = context.data.status;
-  if(aval.status === 0  || (newStatus === 1 && newStatus === 2)){ //is approving or rejecting
+  if(aval.status === 0  && (newStatus === 1 || newStatus === 2)){ //is approving or rejecting
+
+    // TODO Corregir esta condición y hacer más explícito si está aceptando o rechazando.
+    // Por ejemplo, enviando yn código especial y no hardcodear los estados.
+
     let userId;
 
     if(context.params.payload && context.params.payload.userId){
