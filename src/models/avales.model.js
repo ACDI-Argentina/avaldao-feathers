@@ -8,8 +8,7 @@ module.exports = function Aval(app) {
   const avalSchema = new Schema(
     {
       proyecto: { type: String, required: true },
-      proposito: { type: String, required: true },
-      causa: { type: String, required: true },
+      objetivo: { type: String, required: true },
       adquisicion: { type: String, required: true },
       beneficiarios: { type: String, required: true },
       montoFiat: { type: Number, required: true },
