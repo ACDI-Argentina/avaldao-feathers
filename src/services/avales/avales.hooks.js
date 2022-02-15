@@ -1,4 +1,4 @@
-
+const { UnauthorizedError, ForbiddenError } = require("../../errors/index");
 
 const log = () => context => {
   console.log('Request data', context.data);
@@ -7,6 +7,20 @@ const log = () => context => {
   console.log(`userId:`,userId);
   return context;
 };
+
+
+const onlyAuthenticated = () => context => {
+  try{
+    const userId = context.params.payload.userId; 
+    if(!userId){
+      throw new UnauthorizedError();  
+    }
+    return context;
+  } catch(err){
+    throw new UnauthorizedError();
+  }
+}; 
+
 
 //Comprueba que el address del solicitante sea el mismo que llega en el body
 const checkAvalSolicitante = () => context => {
@@ -18,11 +32,11 @@ const checkAvalSolicitante = () => context => {
   }
 
   if (!userId) {
-    throw new Error('Unauthorized');
+    throw new UnauthorizedError(); //TODO: Add details
   }
   
   if (context.data[`solicitanteAddress`] !== userId) {
-    throw new Error(`Unauthorized. User: [${userId}] is not allowed to execute current action`);
+    throw new Error(`Unauthorized. Bad Data. User: [${userId}] is not allowed to execute current action`); 
   }
 
   return context;
@@ -39,16 +53,15 @@ const onlyJWTRole = (rol) => context => { //TODO: check type
   }
 
   if(!jwtRoles){
-    throw new Error("Token does not contain roles");
+    throw new ForbiddenError("Token does not contain roles");
   }
 
   if(!jwtRoles.includes(rol)){
-    throw new Error(`Unauthorized. Missing role: [${rol}]`);
+    throw new ForbiddenError(`Unauthorized. Missing role: [${rol}]`);
   }
 
   return context;
 };
-
 
 
 const onlyAvaldaoCanAccept = () => async context => { //Or reject
@@ -69,7 +82,7 @@ const onlyAvaldaoCanAccept = () => async context => { //Or reject
     }
 
     if(!userId || userId !== aval.avaldaoAddress){
-      throw new Error('Unauthorized');  
+      throw new ForbiddenError();
     }
     
   }
@@ -86,12 +99,13 @@ module.exports = {
     find: [],
     get: [],
     create: [
+      onlyAuthenticated(),
       log(),
       checkAvalSolicitante(),
       onlyJWTRole("SOLICITANTE_ROLE")
     ], 
     update: [],
-    patch: [log(),onlyAvaldaoCanAccept()],
+    patch: [onlyAuthenticated(),onlyAvaldaoCanAccept()],
     remove: []
   },
 

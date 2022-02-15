@@ -1,15 +1,29 @@
+const logger = require('winston');
 const authentication = require('@feathersjs/authentication');
 const jwt = require('@feathersjs/authentication-jwt');
-const { web3 } = require('./authenticationWeb3');
+const envConfig = require("../../../config/authentication");
+
 
 module.exports = function init() {
   const app = this;
   const config = app.get('authentication');
 
+  if(envConfig.secret){
+    config.secret = envConfig.secret;
+  }
+  if(envConfig.audience){
+    config.jwt.audience = envConfig.audience;
+  }
+  if(envConfig.issuer){
+    config.jwt.issuer = envConfig.issuer;
+  }
+  
+  logger.info(`accepted JWT tokens: { issuer:"${config.jwt.issuer}", audience:"${config.jwt.audience}" }`)
+
   // Set up authentication with the secret
   app.configure(authentication(config));
   app.configure(jwt());
-  app.configure(web3());
+  
 
   // The `authentication` service is used to create a JWT.
   // The before `create` hook registers strategies that can be used
