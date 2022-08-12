@@ -4,22 +4,22 @@ const log = () => context => {
   console.log('Request data', context.data);
   console.log('Request params', context.params);
   const userId = context.params.payload.userId;
-  console.log(`userId:`,userId);
+  console.log(`userId:`, userId);
   return context;
 };
 
 
 const onlyAuthenticated = () => context => {
-  try{
-    const userId = context.params.payload.userId; 
-    if(!userId){
-      throw new UnauthorizedError();  
+  try {
+    const userId = context.params.payload.userId;
+    if (!userId) {
+      throw new UnauthorizedError("ID de usuario no especificado");
     }
     return context;
-  } catch(err){
+  } catch (err) {
     throw new UnauthorizedError();
   }
-}; 
+};
 
 
 //Comprueba que el address del solicitante sea el mismo que llega en el body
@@ -34,9 +34,9 @@ const checkAvalSolicitante = () => context => {
   if (!userId) {
     throw new UnauthorizedError(); //TODO: Add details
   }
-  
+
   if (context.data[`solicitanteAddress`] !== userId) {
-    throw new Error(`Unauthorized. Bad Data. User: [${userId}] is not allowed to execute current action`); 
+    throw new Error(`Unauthorized. Bad Data. User: [${userId}] is not allowed to execute current action`);
   }
 
   return context;
@@ -46,17 +46,17 @@ const checkAvalSolicitante = () => context => {
 //'AVALDAO_ROLE','SOLICITANTE_ROLE','COMERCIANTE_ROLE','AVALADO_ROLE'
 const onlyJWTRole = (rol) => context => { //TODO: check type
   let jwtRoles;
-  try{
+  try {
     jwtRoles = context.params.payload.roles;
-  } catch(err){
+  } catch (err) {
     //property doesnt exist
   }
 
-  if(!jwtRoles){
+  if (!jwtRoles) {
     throw new ForbiddenError("Token does not contain roles");
   }
 
-  if(!jwtRoles.includes(rol)){
+  if (!jwtRoles.includes(rol)) {
     throw new ForbiddenError(`Unauthorized. Missing role: [${rol}]`);
   }
 
@@ -66,27 +66,27 @@ const onlyJWTRole = (rol) => context => { //TODO: check type
 
 const onlyAvaldaoCanAccept = () => async context => { //Or reject
   const aval = await context.service.get(context.id);
-  if(!aval){
+  if (!aval) {
     throw new Error(`Aval ${context.id} not found.`)
   }
   const newStatus = context.data.status;
-  if(aval.status === 0  && (newStatus === 1 || newStatus === 2)){ //is approving or rejecting
+  if (aval.status === 0 && (newStatus === 1 || newStatus === 2)) { //is approving or rejecting
 
     // TODO Corregir esta condición y hacer más explícito si está aceptando o rechazando.
     // Por ejemplo, enviando yn código especial y no hardcodear los estados.
 
     let userId;
 
-    if(context.params.payload && context.params.payload.userId){
+    if (context.params.payload && context.params.payload.userId) {
       userId = context.params.payload.userId;
     }
 
-    if(!userId || userId !== aval.avaldaoAddress){
+    if (!userId || userId !== aval.avaldaoAddress) {
       throw new ForbiddenError();
     }
-    
+
   }
-  
+
   return context;
 };
 
@@ -99,13 +99,13 @@ module.exports = {
     find: [],
     get: [],
     create: [
-      onlyAuthenticated(),
       log(),
+      onlyAuthenticated(),
       checkAvalSolicitante(),
       onlyJWTRole("SOLICITANTE_ROLE")
-    ], 
+    ],
     update: [],
-    patch: [onlyAuthenticated(),onlyAvaldaoCanAccept()],
+    patch: [onlyAuthenticated(), onlyAvaldaoCanAccept()],
     remove: []
   },
 
