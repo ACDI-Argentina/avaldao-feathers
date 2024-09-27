@@ -13,6 +13,8 @@ module.exports = function Aval(app) {
       beneficiarios: { type: String, required: true },
       montoFiat: { type: Number, required: true },
       cuotasCantidad: { type: Number, required: true },
+      fechaInicio: { type: Date },
+      duracionCuotasSeconds: { type: Number },
       avaldaoAddress: { type: String, required: true },
       solicitanteAddress: { type: String, required: true },
       comercianteAddress: { type: String, required: true },
