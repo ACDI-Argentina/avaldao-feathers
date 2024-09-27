@@ -1,10 +1,10 @@
 /* eslint-disable no-param-reassign */
 
 const logger = require('winston');
-const rp = require('request-promise');
+const axios = require('axios');
 const { AdminTypes } = require('../models/pledgeAdmins.model');
 
-const sendEmail = (app, data) => {
+const sendEmail = async (app, data) => {
   // add the dapp url that this feathers serves for
   Object.assign(data, { dappUrl: app.get('dappUrl') });
   const dappMailerUrl = app.get('dappMailerUrl');
@@ -25,21 +25,17 @@ const sendEmail = (app, data) => {
     data.subject = `[${app.get('host')}] - ${data.subject}`;
   }
 
-  rp({
-    method: 'POST',
-    url: `${dappMailerUrl}/send`,
-    headers: {
-      Authorization: app.get('dappMailerSecret'),
-    },
-    form: data,
-    json: true,
-  })
-    .then(res => {
-      logger.info(`email sent to ${data.recipient}: `, res);
-    })
-    .catch(err => {
-      logger.error(`error sending email to ${data.recipient}`, err);
+  try {
+    const response = await axios.post(`${dappMailerUrl}/send`, data, {
+      headers: {
+        Authorization: app.get('dappMailerSecret'),
+      },
     });
+
+    logger.info(`email sent to ${data.recipient}: `, response.data);
+  } catch (error) {
+    logger.error(`error sending email to ${data.recipient}`, error);
+  }
 };
 
 module.exports = {
