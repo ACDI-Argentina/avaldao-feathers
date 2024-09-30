@@ -1,4 +1,4 @@
-FROM node:10.21.0-buster
+FROM node:20.12.1
 
 WORKDIR /usr/src/app
 
