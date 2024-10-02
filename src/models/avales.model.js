@@ -15,11 +15,11 @@ module.exports = function Aval(app) {
       cuotasCantidad: { type: Number, required: true },
       fechaInicio: { type: Date },
       duracionCuotaSeconds: { type: Number },
-      desbloqueoDias: { type: Number, default: 10 },
+      desbloqueoSeconds: { type: Number, default: 864000 }, //10 dias
       avaldaoAddress: { type: String, required: true },
       solicitanteAddress: { type: String, required: true },
       comercianteAddress: { type: String, required: true },
-      avaladoAddress: { type: String, required: true },
+      avaladoAddress: { type: String, required: true }, 
       avaldaoSignature: { type: String },
       solicitanteSignature: { type: String },
       comercianteSignature: { type: String },
